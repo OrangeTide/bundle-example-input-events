@@ -12,6 +12,11 @@ module.exports = {
   event: state => player => {
     player.socket.once('data', data => {
       function loop () {
+        // OLC command bypass
+        if (player.otherInput) {
+          player.otherInput = false;
+          return;
+        } // end bypass
         player.socket.emit('commands', player);
       }
       data = data.toString().trim();
